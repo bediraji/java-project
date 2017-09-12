@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="Rectangle-Build" default="main" basedir=".">
+<project name="java-project" default="main" basedir=".">
   <property environment="env"/>
 
   <!-- Sets variables which can later be used. -->
@@ -10,6 +10,8 @@
 
   <path id="class.path">
     <pathelement location="./lib/junit-4.12.jar" />
+	<pathelement location="./lib/hamcrest-core-1.3.jar" />
+	<pathelement location="./lib/hamcrest-library-1.3.jar" />
     <pathelement location="${build.dir}" />
   </path>
 
