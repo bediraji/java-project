@@ -42,7 +42,7 @@ pipeline {
 				label 'CentOS'
 			}
 		steps {
-			sh "wget http://rajibedi1.mylabserver.com/rectangle_${env.BUILD_NUMBER}.jar"
+			sh "wget http://rajibedi1.mylabserver.com/rectangles/all/rectangle_${env.BUILD_NUMBER}.jar"
 			sh "java -jar rectangle_${env.BUILD_NUMBER}.jar 5 6"
 			}
 		}
