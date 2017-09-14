@@ -24,6 +24,8 @@ pipeline {
 		success {
 			archiveArtifacts artifacts: 'dist/*.jar', fingerprint: true
 		
+			}
+		}
 		}
 		
 		stage('deploy') {
@@ -42,7 +44,7 @@ pipeline {
 		steps {
 			sh "wget http://rajibedi1.mylabserver.com/rectangle_${env.BUILD_NUMBER}.jar"
 			sh "java -jar rectangle_${env.BUILD_NUMBER}.jar 5 6"
-		}
+			}
 		}
 	}
 }
