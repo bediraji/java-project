@@ -28,14 +28,14 @@ pipeline {
 		}
 		}
 		
-		stage('deploy') {
-		agent {
-				label 'apache'
-			}
-			steps {
-			sh "cp dist/rectangle_${env.BUILD_NUMBER}.jar /var/www/html/rectangles/all/"
-			}
-		}
+		//stage('deploy') {
+		//agent {
+		//		label 'apache'
+		//	}
+		//	steps {
+		//	sh "cp dist/rectangle_${env.BUILD_NUMBER}.jar /var/www/html/rectangles/all/"
+		//	}
+		//}
 		
 		stage("Running on CentOS") {
 		agent {
@@ -54,6 +54,6 @@ pipeline {
 		//		sh "wget http://rajibedi3.mylabserver.com/rectangles/all/rectangle_${env.BUILD_NUMBER}.jar"
 		//		sh "java -jar rectangle_${env.BUILD_NUMBER}.jar 5 6"
 		//	}
-		//} 
+		//}
 	}
 }
