@@ -45,7 +45,7 @@ pipeline {
 			}
 		steps {
 			//sh "wget http://rajibedi3.mylabserver.com/rectangles/all/rectangle_${env.BUILD_NUMBER}.jar"
-			sh "java -jar rectangle_${env.BUILD_NUMBER}.jar 5 6"
+			sh "java -jar dist/rectangle_${env.BUILD_NUMBER}.jar 5 6"
 			}
 		}
 		//stage("Test on Debian"){
