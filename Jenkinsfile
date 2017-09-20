@@ -56,8 +56,10 @@ pipeline {
 		//	}
 		//} 
 		
-		stage ("Promote to Green")
-		{
+		stage ("Promote to Green") {
+			agent {
+				label 'master'
+			}
 			steps {
 				sh "cp dist/rectangle_${env.BUILD_NUMBER}.jar dist/rectangle_${env.BUILD_NUMBER}_GREEN.jar"
 			}
