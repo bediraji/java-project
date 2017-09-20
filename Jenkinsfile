@@ -1,6 +1,10 @@
 pipeline {
 	agent none
 	
+	environment {
+		MAJOR_VERSION = 1
+	}
+	
 	stages {
 		
 		stage ('Unit Tests') {
@@ -33,7 +37,7 @@ pipeline {
 		//		label 'master'
 		//	}
 		//	steps {
-		//	sh "cp dist/rectangle_${env.BUILD_NUMBER}.jar /var/www/html/rectangles/all/"
+		//	sh "cp dist/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar /var/www/html/rectangles/all/"
 		//	}
 		//}
 		
@@ -43,7 +47,7 @@ pipeline {
 			}
 		steps {
 			//sh "wget http://rajibedi3.mylabserver.com/rectangles/all/rectangle_${env.BUILD_NUMBER}.jar"
-			sh "java -jar dist/rectangle_${env.BUILD_NUMBER}.jar 5 6"
+			sh "java -jar dist/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar 5 6"
 			}
 		}
 		//stage("Test on Debian"){
@@ -51,8 +55,8 @@ pipeline {
 		//		docker 'openjdk:8u141-jre'
 		//	}
 		//	steps {
-		//		sh "wget http://rajibedi3.mylabserver.com/rectangles/all/rectangle_${env.BUILD_NUMBER}.jar"
-		//		sh "java -jar rectangle_${env.BUILD_NUMBER}.jar 5 6"
+		//		sh "wget http://rajibedi3.mylabserver.com/rectangles/all/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar"
+		//		sh "java -jar rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar 5 6"
 		//	}
 		//} 
 		
@@ -64,7 +68,7 @@ pipeline {
 				branch 'master'
 			}
 			steps {
-				sh "cp dist/rectangle_${env.BUILD_NUMBER}.jar dist/${env.BRANCH_NAME}/rectangle_${env.BUILD_NUMBER}_GREEN.jar"
+				sh "cp dist/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar dist/${env.BRANCH_NAME}/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}_GREEN.jar"
 			}
 		}
 		stage ("Promote to Master branch") {
@@ -85,6 +89,9 @@ pipeline {
 				sh "git merge development"
 				echo "Pushing to origin master"
 				sh "git push origin master"
+				echo "Tagging the release"
+				sh "git tag rectangle-${env.MAJOR_VERSION}.${env.BUILD_NUMBER}"
+				sh "git push origin rectangle-${env.MAJOR_VERSION}.${env.BUILD_NUMBER}"
 			}
 		}
 	}
