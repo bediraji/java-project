@@ -55,5 +55,12 @@ pipeline {
 		//		sh "java -jar rectangle_${env.BUILD_NUMBER}.jar 5 6"
 		//	}
 		//} 
+		
+		stage ("Promote to Green")
+		{
+			steps {
+				sh "cp dist/rectangle_${env.BUILD_NUMBER}.jar dist/rectangle_${env.BUILD_NUMBER}_GREEN.jar"
+			}
+		}
 	}
 }
