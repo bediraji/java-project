@@ -60,8 +60,31 @@ pipeline {
 			agent {
 				label 'master'
 			}
+			when {
+				branch 'master'
+			}
 			steps {
-				sh "cp dist/rectangle_${env.BUILD_NUMBER}.jar dist/rectangle_${env.BUILD_NUMBER}_GREEN.jar"
+				sh "cp dist/rectangle_${env.BUILD_NUMBER}.jar dist/${env.BRANCH_NAME}/rectangle_${env.BUILD_NUMBER}_GREEN.jar"
+			}
+		}
+		stage ("Promote to Master branch") {
+			agent {
+				label 'master'
+			}
+			when {
+				branch 'development'
+			}
+			steps {
+				echo "Stashing any local changes"
+				sh "git stash"
+				echo "Checking out development branch"
+				sh "git checkout development"
+				echo "Checking out master branch"
+				sh "git checkout master"
+				echo "Merging development into master"
+				sh "git merge development"
+				echo "Pushing to origin master"
+				sh "git push origin master"
 			}
 		}
 	}
