@@ -11,7 +11,7 @@ pipeline {
 		{
 			agent any
 			steps {
-				sayhello 'Hello Raji Bedi!'
+				sayhello 'Hello Raji Bedi!' 
 			}
 		}
 		stage ('Unit Tests') {
