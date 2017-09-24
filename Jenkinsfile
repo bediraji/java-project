@@ -9,7 +9,7 @@ pipeline {
 
 		stage('Say Hello')
 		{
-			agent any
+			 agent any
 			steps {
 				sayhello 'Hello Raji Bedi!'
 			}
@@ -20,7 +20,7 @@ pipeline {
 			steps {
 				echo "My branch Name: ${env.BRANCH_NAME}"
 				script {
-					def myLib = new linuxacademy.git.gitStuff(); 
+					def myLib = new linuxacademy.git.gitStuff();
 					echo "My Commit: ${myLib.gitCommit("${env.WORKSPACE}/.git")}"
 				}
 			}
