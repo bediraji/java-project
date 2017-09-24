@@ -14,6 +14,17 @@ pipeline {
 				sayhello 'Hello Raji Bedi!'
 			}
 		}
+		stage('Got information')
+		{
+			agent any
+			steps {
+				echo "My branch Name: ${env.BRANCH_NAME}"
+				script {
+					def myLib = new linuxacademy.git.gitStuff();
+					echo "My Commit: ${mylib.gitCommit("${env.WORKSPACE}/.git")}"
+				}
+			}
+		}
 		stage ('Unit Tests') {
 			agent {
 				label 'master'
