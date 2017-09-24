@@ -1,12 +1,19 @@
 pipeline {
 	agent none
-	
+
 	environment {
 		MAJOR_VERSION = 1
 	}
-	
+
 	stages {
-		
+
+		stage('Say Hello')
+		{
+			agent any
+			steps {
+				sayhello 'Hello Raji Bedi!'
+			}
+		}
 		stage ('Unit Tests') {
 			agent {
 				label 'master'
@@ -16,7 +23,7 @@ pipeline {
 			junit 'reports/result.xml'
 			}
 		}
-		
+
 		stage('build'){
 		agent {
 				label 'master'
@@ -27,11 +34,11 @@ pipeline {
 		post {
 		success {
 			archiveArtifacts artifacts: 'dist/*.jar', fingerprint: true
-		
+
 			}
 		}
 		}
-		
+
 		//stage('deploy') {
 		//agent {
 		//		label 'master'
@@ -40,7 +47,7 @@ pipeline {
 		//	sh "cp dist/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar /var/www/html/rectangles/all/"
 		//	}
 		//}
-		
+
 		stage("Running on CentOS") {
 		agent {
 				label 'master'
@@ -58,8 +65,8 @@ pipeline {
 		//		sh "wget http://rajibedi3.mylabserver.com/rectangles/all/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar"
 		//		sh "java -jar rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar 5 6"
 		//	}
-		//} 
-		
+		//}
+
 		stage ("Promote to Green") {
 			agent {
 				label 'master'
